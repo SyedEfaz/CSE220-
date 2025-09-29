@@ -1,0 +1,241 @@
+// Task1
+public static String checkSimilar( Node building1, Node building2 ){
+        
+        Node temp1 = building1;
+
+
+        Node temp2 =building2;
+
+
+        while(temp1!=null&&temp2!=null){
+
+
+            if(temp1.elem==temp2.elem){
+              temp1=temp1.next;
+              temp2=temp2.next;
+
+            }
+            else{
+             return "Not Similar";
+
+
+
+            }
+    
+    
+    }
+    if (temp1 == null && temp2 == null) {
+        return "Similar";
+    } else {
+        return "Not Similar";
+    }
+
+        
+        
+}
+//task2
+public static Node wordDecoder(Node head) {
+    if (head == null) return null; 
+
+    int size = 0; 
+    Node temp = head;
+
+    
+    while (temp != null) {
+        size++;
+        temp = temp.next;
+    }
+
+    int d = 13 % size; 
+    int count = 0;
+    Node temp2 = head;
+    Node p = new Node(null); 
+    Node i = p; 
+
+    
+    while (temp2 != null) {
+        if (count % d == 0) {
+            i.next = temp2; 
+            i = i.next; 
+        }
+        temp2 = temp2.next; 
+        count++;
+    }
+
+    
+    Node prev = null;
+    Node current = p.next;
+    Node after;
+
+    while (current != null) {
+        after = current.next; 
+        current.next = prev; 
+        prev = current; 
+        current = after; 
+    }
+
+    return p; 
+}
+//task2
+public static int sumDist(Node head, Integer[] distArr) {
+    int sum = 0;
+
+    Node temp = head;
+    for (int i = 0; i < distArr.length; i++) {
+        if (distArr[i] == i) {
+            sum += temp.elem;
+        }
+        temp = temp.next;
+    }
+    return sum;
+}
+
+//task3
+public static Node alternateMerge(Node head1, Node head2) {
+    Node t1 = head1;
+    Node t2 = head2;
+
+
+    Node t = null;
+    Node head3 = null;
+
+    while (t1!=null&&t2!= null) {
+        if (t == null) {
+
+
+            
+            head3 = t1; 
+            t = head3; 
+        } else {
+
+
+            t.next = t1;
+        }
+        t1 = t1.next; 
+
+        t.next = t2;
+
+
+ 
+        t2 = t2.next; 
+
+        t = t.next; 
+    }
+
+    
+    if (t1 != null) {
+        t.next = t1;
+    }
+    if (t2 != null) {
+        t.next = t2;
+    }
+
+    return head3; 
+}
+
+//task4
+public static Node idGenerator(Node head1, Node head2, Node head3) {
+    Node prev = null;
+    Node curr = head1;
+    Node after = null;
+    while (curr != null) {
+        after = curr.next;
+        curr.next = prev;
+        prev = curr;
+        curr = after;
+    }
+    Node temp1 = head2;
+    Node temp2 = head3;
+    Node h4 = new Node(0, null); 
+    Node temp4 = h4;
+    int carry = 0; 
+    while (temp1 != null || temp2 != null) {
+        int sum = carry;
+        if (temp1 != null) {
+            sum += temp1.elem;
+            temp1 = temp1.next;
+        }
+        if (temp2 != null) {
+            sum += temp2.elem;
+            temp2 = temp2.next;
+        }
+        carry = sum / 10;
+        Node p = new Node(sum % 10, null); 
+        temp4.next = p;
+        temp4 = temp4.next;
+    }
+    if (carry > 0) { // If there's a carry left
+        temp4.next = new Node(carry, null);
+    }
+    prev.next = h4.next;
+    return head1;
+}
+//task5
+public static Node sumOddAppend(Node dh) {
+    int sumOdd = 0;
+    Node currentNode = dh.next;
+    Node previousNode = dh;
+
+    while (currentNode != dh) {
+        if (currentNode.elem % 2 == 1) {
+            sumOdd += currentNode.elem;
+            previousNode.next = currentNode.next; 
+        } else {
+            previousNode = currentNode; 
+        }
+        currentNode = previousNode.next; 
+    }
+
+    Node sumNode = new Node(sumOdd, dh); 
+    previousNode.next = sumNode; 
+
+    return dh; 
+}
+
+//task6
+public static void pairJoin(DNode dh1, DNode dh2) {
+    
+
+    DNode temp1 = dh1.next;
+    DNode temp2 = dh2.next;
+
+    while (temp1 != null && temp2 != null) {
+        DNode next1 = temp1.next;
+        DNode next2 = temp2.next;
+
+        temp1.next = temp2;
+        temp2.prev = temp1;
+
+        temp2.next = next1;
+        if (next1 != null) {
+            next1.prev = temp2;
+        }
+
+        temp1 = next1;
+        temp2 = next2;
+    }
+}
+
+//task7
+public static void rangeMove(DNode dh, int start, int end) {
+    
+
+    DNode currentNode = dh.next;
+    DNode tail = dh; 
+
+    while (currentNode != dh) {
+        if (currentNode.value >= start && currentNode.value <= end) {
+            
+            currentNode.prev.next = currentNode.next;
+            currentNode.next.prev = currentNode.prev;
+
+            
+            currentNode.prev = tail;
+            currentNode.next = dh; 
+            tail.next = currentNode;
+            tail = currentNode; 
+        }
+        currentNode = currentNode.next; 
+    }
+}
+
