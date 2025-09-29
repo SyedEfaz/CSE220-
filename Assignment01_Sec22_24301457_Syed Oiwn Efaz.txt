@@ -1,0 +1,125 @@
+//task1
+public static void mostWater( Integer[] height ){
+    int hmax1 =0;
+    int hmax2=0;
+    int sidx=0;
+    int eidx=0;
+        for(int i=0;i<height.length;i++){
+     if(hmax1<height[i]){
+hmax1=height[i];
+sidx=i;
+
+     }}
+      
+
+
+for(int j=0;j<height.length;j++){
+        if(hmax1 ==height[j]){
+            continue;
+        }
+     if(hmax2<height[j]){
+    hmax2=height[j];
+    eidx=j;
+     }
+
+
+     }
+     int breath = eidx-sidx;
+     int area =breath*hmax2;
+ System.out.println(area);
+        }
+//task2
+public static Integer rowRotation(Integer examWeek, String[][] matrix) {
+        int row = matrix.length;
+        int col = matrix[0].length;
+        int steps = examWeek - 1;
+
+        
+        for (int i = 0; i < steps; i++) {
+            String[] temp = matrix[row - 1]; 
+            for (int j = row - 1; j > 0; j--) {
+                matrix[j] = matrix[j - 1]; 
+            }
+            matrix[0] = temp; 
+        }
+
+        Integer r = 0;
+        for (int p = 0; p < row; p++) {
+            for (int q = 0; q < col; q++) {
+                if (matrix[p][q].equals("AA")) {
+                    r = p + 1; 
+                }
+            }}
+
+        return r;
+    }
+//task3
+public static int[][] compressMatrix(Integer[][] matrix) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+        int[][] p = new int[2][2];
+        int sumTr = 0, sumTl = 0, sumBr = 0, sumBl = 0;
+
+        for (int i = 0; i < m / 2; i++) {
+            for (int j = 0; j < n / 2; j++) {
+                sumTr += matrix[i][j];
+            }
+        }
+        for (int i = 0; i < m / 2; i++) {
+            for (int j = n / 2; j < n; j++) {
+                sumTl += matrix[i][j];
+            }
+        }
+        for (int i = m / 2; i < m; i++) {
+            for (int j = 0; j < n / 2; j++) {
+                sumBr += matrix[i][j];
+            }
+        }
+        for (int i = m / 2; i < m; i++) {
+            for (int j = n / 2; j < n; j++) {
+                sumBl += matrix[i][j];
+            }
+        }
+        p[0][0] = sumTr;
+        p[0][1] = sumTl;
+        p[1][0] = sumBr;
+        p[1][1] = sumBl;
+
+        return p;
+    }
+
+    //task4
+public static void playGame(Integer[][] arena) {
+        int row = arena.length;
+        int col = arena[0].length;
+        int point = 0;
+
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                if (arena[i][j] % 50 == 0) {
+                    
+                    if (i > 0 && arena[i - 1][j] == 2) {
+                        point++;
+                    }
+                    
+                    if (i < row - 1 && arena[i + 1][j] == 2) {
+                        point++;
+                    }
+                    
+                    if (j > 0 && arena[i][j - 1] == 2) {
+                        point++;
+                    }
+                    
+                    if (j < col - 1 && arena[i][j + 1] == 2) {
+                        point++;
+                    }
+                }
+            }
+        }
+
+        int totalPoints = point * 2;
+        if (totalPoints > 10) {
+            System.out.print("Points Gained: " + totalPoints + ". Your team has survived the game.\n");
+        } else {
+            System.out.print("Points Gained: " + totalPoints + ". Your team is out.\n");
+        }
